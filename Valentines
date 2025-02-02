@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Gift</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            transition: background 1s ease;
+            color: white;
+        }
+        .container {
+            position: relative;
+        }
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background: red;
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.5s ease;
+        }
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+        canvas {
+            display: none;
+        }
+        .message, .options, .response-message {
+            display: none;
+        }
+        .message {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #ff69b4;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in;
+        }
+        .options {
+            margin-top: 15px;
+            animation: fadeIn 1s ease-in;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        .yes { background: #28a745; color: white; }
+        .no { background: #dc3545; color: white; }
+        .response-message {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #ffffff;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #9370DB, 0 0 10px #9370DB; }
+            50% { text-shadow: 0 0 15px #9370DB, 0 0 30px #9370DB; }
+            100% { text-shadow: 0 0 5px #9370DB, 0 0 10px #9370DB; }
+        }
+        .glowing-text {
+            animation: glow 2s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gift-box" onclick="openGift()">Open Gift</div>
+        <canvas id="artCanvas" width="400" height="400"></canvas>
+        <div class="message">Will you be my first ever Valentine? From, Seal <3</div>
+        <div class="options">
+            <button class="btn yes" onclick="sayYes()">Yes</button>
+            <button class="btn no" onclick="sayNo()">No</button>
+        </div>
+        <div class="response-message"></div>
+    </div>
+
+    <script>
+        function openGift() {
+            document.querySelector(".gift-box").style.display = "none";
+            document.querySelector(".message").style.display = "block";
+            document.querySelector(".options").style.display = "block";
+        }
+
+        function drawArt() {
+            let canvas = document.getElementById("artCanvas");
+            let ctx = canvas.getContext("2d");
+            canvas.style.display = "block";
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Glowing periwinkle flowers
+            ctx.fillStyle = "#9370DB";
+            for (let i = 0; i < 3; i++) {
+                let x = 100 + (i * 100);
+                ctx.beginPath();
+                ctx.arc(x, 120, 20, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Stems
+            ctx.strokeStyle = "#228B22";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(100, 120);
+            ctx.lineTo(100, 200);
+            ctx.moveTo(200, 120);
+            ctx.lineTo(200, 200);
+            ctx.stroke();
+            
+            // Chocolates
+            ctx.fillStyle = "#6B3E26";
+            ctx.fillRect(50, 250, 60, 60);
+            ctx.fillRect(120, 250, 60, 60);
+            ctx.fillRect(190, 250, 60, 60);
+        }
+
+        function sayYes() {
+            document.body.style.background = "#800080";
+            document.querySelector(".message").style.display = "none";
+            document.querySelector(".options").style.display = "none";
+            let response = document.querySelector(".response-message");
+            response.innerText = "YESSSSSSSS GOAAAL my first ever valentine here are your chocolates and flowers ehe";
+            response.classList.add("glowing-text");
+            response.style.display = "block";
+            drawArt();
+        }
+
+        function sayNo() {
+            document.body.style.background = "#6c757d";
+            document.querySelector(".message").style.display = "none";
+            document.querySelector(".options").style.display = "none";
+            let response = document.querySelector(".response-message");
+            response.innerText = "Ohhhhhhh I see...";
+            response.style.display = "block";
+        }
+    </script>
+</body>
+</html>
